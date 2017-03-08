@@ -11,6 +11,31 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layout');
-});
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+    ],
+    function() {
+        Route::get('/', [
+            'as' => 'home',
+            'uses' => 'HomeController@index'
+        ]);
+
+        Route::get('/user/{id}', [
+            'as' => 'profile',
+            'uses' => 'UserController@show'
+        ])->where('id', '[0-9]+');
+
+        Route::get('/users', [
+            'as' => 'users',
+            'uses' => 'UserController@index'
+        ]);
+
+        Route::get('home', function() {
+            return redirect()->route('home');
+        });
+
+        Auth::routes();
+    }
+);
