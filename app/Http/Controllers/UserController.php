@@ -68,7 +68,7 @@ class UserController extends Controller
     {
         if ($user = User::find($id))
         {
-            return view('users.view', ['user' => $user->first()]);
+            return view('users.view', ['user' => $user]);
         }
 
         return back()->with('message', ['text' => __('messages.user_not_found'), 'type' => 'danger']);
