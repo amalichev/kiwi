@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Role;
+use App\Permission;
 use App\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -20,21 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = [];
-        $roles = Role::all();
+        $users = User::orderBy('role_id')->orderBy('name')->get();
 
-        foreach ($roles as $key => $role)
-        {
-            $data[$key]['title'] = $role->title;
-
-            $users = User::where('role_id', $role->id)->orderBy('role_id')->orderBy('name')->get();
-
-            $role->type == self::ROLE_USER && $users = $users->take(self::USER_LIMIT);
-
-            $data[$key]['users'] = $users;
-        }
-
-        return view('users.listing', ['roles' => $data]);
+        return view('users.listing', ['users' => $users]);
     }
 
     /**
@@ -68,7 +56,11 @@ class UserController extends Controller
     {
         if ($user = User::find($id))
         {
-            return view('users.view', ['user' => $user]);
+            $permissions = $user->role->permissions;
+
+            $permissions->contains('name', 'view_profile') || abort(403);
+
+            return view('users.view', ['user' => $user, 'permissions' => $permissions]);
         }
 
         return back()->with('message', ['text' => __('messages.user_not_found'), 'type' => 'danger']);
