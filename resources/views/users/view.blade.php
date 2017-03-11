@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ $user->name }}</h1>
+    <h1>{{ $page_title }}</h1>
 
     <table class="table table-hover table-striped">
         <tr>

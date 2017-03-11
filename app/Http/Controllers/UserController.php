@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $users = User::orderBy('role_id')->orderBy('name')->get();
 
-        return view('users.listing', ['users' => $users]);
+        return view('users.listing', ['page_title' => __('common.users'), 'users' => $users]);
     }
 
     /**
@@ -62,7 +62,13 @@ class UserController extends Controller
 
         $user->id == $id || abort(403);
 
-        return view('users.view', ['user' => $user, 'permissions' => $permissions]);
+        $data = [
+            'page_title' => $user->name,
+            'user' => $user,
+            'permissions' => $permissions,
+        ];
+
+        return view('users.view', $data);
     }
 
     /**

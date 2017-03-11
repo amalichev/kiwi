@@ -8,16 +8,6 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
@@ -25,6 +15,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = [
+            'page_title' => __('common.home'),
             'user' => Auth::user(),
         ];
 

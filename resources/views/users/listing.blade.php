@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>@lang('common.users')</h1>
+    <h1>{{ $page_title }}</h1>
 
     <div class="panel panel-default">
         <div class="panel-body">

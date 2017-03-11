@@ -5,10 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>{{ !$page_title ? '' : $page_title . ' | ' }}{{ config('app.name', 'Laravel') }}</title>
+
+    <meta property="og:title" content="{{ !$page_title ? '' : $page_title . ' | ' }}{{ config('app.name', 'Laravel') }}">
+    <meta property="og:url" content="{{ URL::current() }}">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:title" content="{{ !$page_title ? '' : $page_title . ' | ' }}{{ config('app.name', 'Laravel') }}">
+    <meta name="twitter:url" content="{{ URL::current() }}">
+    <meta name="twitter:card" content="summary">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
