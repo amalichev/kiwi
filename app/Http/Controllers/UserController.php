@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Permission;
 use App\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 
 class UserController extends Controller
@@ -54,16 +54,15 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        if ($user = User::find($id))
-        {
-            $permissions = $user->role->permissions;
+        $permissions = Auth::user()->role->permissions;
 
-            $permissions->contains('name', 'view_profile') || abort(403);
+        $user = $permissions->contains('name', 'view_profile') ? User::find($id) : User::find(Auth::user()->id);
 
-            return view('users.view', ['user' => $user, 'permissions' => $permissions]);
-        }
+        $user || abort(404);
 
-        return back()->with('message', ['text' => __('messages.user_not_found'), 'type' => 'danger']);
+        $user->id == $id || abort(403);
+
+        return view('users.view', ['user' => $user, 'permissions' => $permissions]);
     }
 
     /**
