@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ config('app.locale') }}" dir="{{ config('app.direction') }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -67,7 +67,7 @@
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route('profile', Auth::user()->id) }}">
+                                        <a href="{{ route('profile', Auth::user()->id) }}" rel="nofollow">
                                             @lang('users.profile')
                                         </a>
                                     </li>

@@ -9,7 +9,7 @@
             @lang('messages.dashboard.guest')
         @else
             @lang('messages.dashboard.user', [
-                'user' => '<a href="' . route('profile', $user->id) . '">' . $user->name . '</a>',
+                'user' => '<a href="' . route('profile', $user->id) . '" rel="nofollow">' . $user->name . '</a>',
                 'role' => '<a href="' . route('users') . '">' . $user->role->title . '</a>'
             ])
         @endif

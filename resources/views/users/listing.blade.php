@@ -17,8 +17,8 @@
                 <tbody>
                     @foreach($users as $user)
                         <tr>
-                            <td><a href="{{ route('profile', $user->id) }}">{{ $user->name }}</a></td>
-                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                            <td><a href="{{ route('profile', $user->id) }}" rel="nofollow">{{ $user->name }}</a></td>
+                            <td><a href="mailto:{{ $user->email }}" rel="nofollow">{{ $user->email }}</a></td>
                             <td>{{ $user->role->title }}</td>
                             <td>@lang('users.status_' . $user->status)</td>
                         </tr>
